@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">proyecto_programacion</string>
+    <string name="nombre"></string>
+    <string name="curp"></string>
+    <string name="cat_lab"></string>
+    <string-array name="secciones">
+        <!-- aqui se da los que van en el dropdown menu-->
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+</resources>
