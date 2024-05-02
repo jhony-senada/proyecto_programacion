@@ -8,11 +8,22 @@ class Lista_empleados : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lista_empleados)
         data class Empleado (
+            var fotoDePerfil: String,
             var Nombre: String,
             var CURP: String,
-            //var
+            var Seccion: String,
+            var catLab: String
         )
-        //var Empleados =
+        var empleados = ArrayList<Empleado?>(30)
+        //este es el empleado ejemplo
+        empleados.add(Empleado("foto1","Pipo Sarzamora","PIPO061518HQTBKFA4","Norte","ejecutivos"))
+        //aqui todos los demas empleados :D
+
+        //para asegurarnos que sean 30 empleados:
+        while (empleados.size<30){
+            empleados.add(null)
+        }
+
     }
 
 }

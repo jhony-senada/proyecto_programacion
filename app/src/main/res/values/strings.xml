@@ -1,12 +1,15 @@
 <resources>
     <string name="app_name">proyecto_programacion</string>
-    <string name="nombre"></string>
-    <string name="curp"></string>
-    <string name="cat_lab"></string>
+    <string-array name="cat_lab">
+        <!-- estos son las opciones que da en la categoria laboral-->
+        <item>ejecutivos</item>
+        <item>directivos</item>
+        <item>gerentes</item>
+        <item>empleados</item>
+    </string-array>
     <string-array name="secciones">
-        <!-- aqui se da los que van en el dropdown menu-->
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
+        <!-- estos son las opciones que da en la seccion-->
+        <item>Norte</item>
+        <item>Sur</item>
     </string-array>
 </resources>
