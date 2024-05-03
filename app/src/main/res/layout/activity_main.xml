@@ -39,11 +39,17 @@
         android:id="@+id/Edittxt_Email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="90dp"
+        android:layout_marginTop="186dp"
+        android:layout_marginEnd="111dp"
+        android:layout_marginBottom="497dp"
         android:ems="10"
         android:inputType="textEmailAddress"
         android:minHeight="48dp"
-        tools:layout_editor_absoluteX="90dp"
-        tools:layout_editor_absoluteY="186dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView"
@@ -101,5 +107,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.492" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="91dp"
+        android:layout_marginTop="255dp"
+        android:layout_marginEnd="245dp"
+        android:layout_marginBottom="457dp"
+        android:text="Contraseña "
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,6 +2,7 @@ package com.proyectoProgramacion
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 
@@ -14,10 +15,16 @@ class MainActivity : AppCompatActivity() {
         val btlog = findViewById<Button>(R.id.Login)
         val mail = findViewById<EditText>(R.id.Edittxt_Email).text.toString()
         val password = findViewById<EditText>(R.id.Edittxt_Password).text.toString()
-        val pin = findViewById<EditText>(R.id.editTextPin).text.toString().toInt()
-
+        val pin = findViewById<EditText>(R.id.editTextPin).text.toString()
+        val pinV= if(pin.isNotEmpty()){
+            pin.toInt()
+        }else{
+            0
+        }
+        Log.i("ver","parte 1 jala")
         btlog.setOnClickListener {
-            login(mail, password, pin)
+            login(mail, password, pinV)
+            Log.i("ver","parte 3 jala")
         }
 
 
@@ -28,6 +35,7 @@ class MainActivity : AppCompatActivity() {
             val password: String,
             val pin: Int
         )
+        Log.i("ver","parte 2 jala")
         val personas: Array<Persona> = arrayOf(
             Persona("correo@ejemplo.com", "pasword123", 1234),
             Persona("otro@ejemplo.com", "pass456", 5678)
