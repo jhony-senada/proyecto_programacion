@@ -12,18 +12,21 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         //aqui seria el login (pag1)
         //si el login es correcto mandar a lista empleados
-        val btlog = findViewById<Button>(R.id.Login)
-        val mail = findViewById<EditText>(R.id.Edittxt_Email).text.toString()
-        val password = findViewById<EditText>(R.id.Edittxt_Password).text.toString()
-        val pin = findViewById<EditText>(R.id.editTextPin).text.toString()
-        val pinV= if(pin.isNotEmpty()){
-            pin.toInt()
-        }else{
-            0
-        }
-        Log.i("ver","parte 1 jala")
+        val btlog = findViewById<Button>(R.id.btLogin)
         btlog.setOnClickListener {
-            login(mail, password, pinV)
+            val mail = findViewById<EditText>(R.id.txt_email).text
+            val mailV=mail.toString()
+            val password = findViewById<EditText>(R.id.txt_pass).text
+            val passwordV =password.toString()
+            val pin = findViewById<EditText>(R.id.txt_pin).text.toString()
+            val pinV= if(pin.isNotEmpty()){
+                pin.toInt()
+            }else{
+                0
+            }
+            Log.i("Valores","s2 $mailV , $passwordV , $pinV")
+            login(mailV, passwordV, pinV)
+
             Log.i("ver","parte 3 jala")
         }
 
@@ -36,29 +39,39 @@ class MainActivity : AppCompatActivity() {
     * git push origin master
     * */
     fun login(mail: String, password: String, pin: Int) {
+        val Mail=mail
+        val Password=password
+        val Pin = pin
         data class Persona(
             val email: String,
             val password: String,
             val pin: Int
         )
-        Log.i("ver","parte 2 jala")
+        Log.i("Valores","$Mail , $password , $Pin")
         val personas: Array<Persona> = arrayOf(
             Persona("correo@ejemplo.com", "pasword123", 1234),
-            Persona("otro@ejemplo.com", "pass456", 5678)
+            Persona("otro@ejemplo.com", "pass456", 5678),
+            Persona("test","test",5)//quitar despues, es para probar
         )
         for (i in personas.indices) {
+
             var mailBoss = personas[i].email
             var passBoss = personas[i].password
             var pinBoss = personas[i].pin
-            if (mail == mailBoss) {
-                if (password == passBoss) {
-                    if (pin == pinBoss) {
+            Log.i("Valores","email $mailBoss")
+            Log.i("Valores","password $passBoss")
+            Log.i("Valores", "pin $pinBoss")
+            if (Mail == mailBoss) {
+                if (Password == passBoss) {
+                    if (Pin == pinBoss) {
                         val liga = Intent(this, Lista_empleados::class.java)
                         startActivity(liga)
-                    }
-                }
+                        break
+                    }else{Log.i("Error","Pin")}
+                }else{Log.i("Error","contraseña") }
             }else{
                 //la warning aqui
+                Log.i("Error","correo")
             }
         }
     }
