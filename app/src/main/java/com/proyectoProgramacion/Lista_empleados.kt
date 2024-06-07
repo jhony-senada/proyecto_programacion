@@ -11,40 +11,42 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.core.widget.doOnTextChanged
 
 class Lista_empleados : AppCompatActivity() {
+    var separador =0
     override fun onCreate(savedInstanceState: Bundle?) {
         //se debe tomar en cuenta que esta cosa es basicamente lo de bases de datos, y NO estamos capacitados para hacerlo
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lista_empleados)
         val sihay=false //placeholder
-        var separador =0
+
         test(separador,sihay)
         val btAtras= findViewById<ImageButton>(R.id.boton_atras)
         val btAdelante= findViewById<ImageButton>(R.id.boton_saltar)
         btAdelante.setOnClickListener{
-            when (separador) {
+            separador=siguiente(sihay)
+            /*when (separador) {
                 0->{
-                    separador=siguiente(0,sihay)
+                    separador=siguiente(sihay)
                 }
                 1 -> {
-                    separador=siguiente(1,sihay)
+                    separador=siguiente(sihay)
                 }
 
                 2 -> {
-                    separador=siguiente(2,sihay)
+                    separador=siguiente(sihay)
                 }
 
                 3 -> {
-                    separador=siguiente(3,sihay)
+                    separador=siguiente(sihay)
                 }
 
                 4 -> {
-                    separador=siguiente(4,sihay)
+                    separador=siguiente(sihay)
 
                 }
                 else->{
                     Log.i("Error","Error en siguiente")
                 }
-            }
+            }*/
             /*if(separador==0){
                 separador1= siguiente(separador)
                 separador=1
@@ -53,33 +55,34 @@ class Lista_empleados : AppCompatActivity() {
         }
 
         btAtras.setOnClickListener{
-            when (separador) {
+            separador=anterior(sihay)
+            /*when (separador) {
                 0->{
-                    separador=anterior(0,sihay)
+                    separador=anterior(sihay)
                 }
                 1 -> {
-                    separador=anterior(1,sihay)
+                    separador=anterior(sihay)
                 }
 
                 2 -> {
-                    separador=anterior(2,sihay)
+                    separador=anterior(sihay)
                 }
 
                 3 -> {
-                    separador=anterior(3,sihay)
+                    separador=anterior(sihay)
                 }
 
                 4 -> {
-                    separador=anterior(4,sihay)
+                    separador=anterior(sihay)
 
                 }
                 5 ->{
-                    separador=anterior(5,sihay)
+                    separador=anterior(sihay)
                 }
                 else->{
                     Log.i("Error","Error en Anterior $separador")
                 }
-            }
+            }*/
         }
     }
 
@@ -337,18 +340,18 @@ class Lista_empleados : AppCompatActivity() {
 
         }
     }*/
-    fun siguiente(separador: Int,sihay:Boolean): Int{
-        if (separador <5){
-            val separadorplus=separador+1
+    fun siguiente(sihay:Boolean): Int{
+        if (this.separador <5){
+            val separadorplus= this.separador +1
             test(separadorplus,sihay)
             Log.i("Valores","mas 1 $separadorplus")
             return separadorplus
         }else {
-            Log.i("Error","no se puede $separador")
-            return separador
+            Log.i("Error","no se puede ${this.separador}")
+            return this.separador
         }
     }
-    fun anterior(separador: Int,sihay: Boolean): Int{
+    fun anterior(sihay: Boolean): Int{
         if (separador >0){
             val separadorminus=separador-1
             test(separadorminus,sihay)

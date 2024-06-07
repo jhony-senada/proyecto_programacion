@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
 
     }
     /*
+
     * instrucciones para subir a Git repository
     * git add .
     * git commit -m "el mensaje aqui"
