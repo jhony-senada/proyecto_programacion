@@ -5,9 +5,60 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
-
+import android.os.Parcel
+import android.os.Parcelable
+import java.util.*
 class MainActivity : AppCompatActivity() {
+    data class Empleado (
+        //var fotoDePerfil: String, esto debe ser aleatorio yo que se
+        var Nombre: String,
+        var CURP: String,
+        var Seccion: String,
+        var catLab: String
+    ): Parcelable{
+        constructor(parcel: Parcel):this(
+            parcel.readString()?:"",
+            parcel.readString()?:"",
+            parcel.readString()?:"",
+            parcel.readString()?:""
+            )
+
+        override fun writeToParcel(parcel: Parcel, flags: Int) {
+            parcel.writeString(Nombre)
+            parcel.writeString(CURP)
+            parcel.writeString(Seccion)
+            parcel.writeString(catLab)
+        }
+
+        override fun describeContents(): Int {
+            return 0
+        }
+
+        companion object CREATOR : Parcelable.Creator<Empleado> {
+            override fun createFromParcel(parcel: Parcel): Empleado {
+                return Empleado(parcel)
+            }
+
+            override fun newArray(size: Int): Array<Empleado?> {
+                return arrayOfNulls(size)
+            }
+        }
+    }
+    var empleados = arrayListOf<Empleado>(
+        Empleado("Pipo Sarzamora","PIPO061518HQTBKFA4","Norte","ejecutivos"),
+        Empleado("Pipo Sarzamora","PIPO061518HQTBKFA4","Sur","ejecutivos"),
+        Empleado("Pipo Sarzamora","PIPO061518HQTBKFA4","Norte","ejecutivos"),
+        Empleado("Pipo Sarzamora","PIPO061518HQTBKFA4","Sur","ejecutivos"),
+        Empleado("Pipo Sarzamora","PIPO061518HQTBKFA4","Norte","ejecutivos"),
+        Empleado("El P I P O","PIPO061518HQTBKFA4","Norte","ejecutivos")
+    )
+    //este es el empleado ejemplo
     override fun onCreate(savedInstanceState: Bundle?) {
+        //aqui todos los demas empleados :D
+        //para asegurarnos que sean 30 empleados:
+        while (empleados.size<=29){
+            empleados.add(Empleado("espacio vacio","espacio vacio","espacio vacio","espacio vacio"))
+        }
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         //aqui seria el login (pag1)
@@ -66,6 +117,7 @@ class MainActivity : AppCompatActivity() {
                 if (Password == passBoss) {
                     if (Pin == pinBoss) {
                         val liga = Intent(this, Lista_empleados::class.java)
+                        liga.putParcelableArrayListExtra("empleados",empleados)
                         startActivity(liga)
                         break
                     }else{Log.i("Error","Pin")}

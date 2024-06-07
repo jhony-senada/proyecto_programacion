@@ -1,14 +1,12 @@
 package com.proyectoProgramacion
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
-import androidx.core.widget.doAfterTextChanged
-import androidx.core.widget.doOnTextChanged
+import androidx.appcompat.app.AppCompatActivity
 
 class Lista_empleados : AppCompatActivity() {
     var separador =0
@@ -16,106 +14,31 @@ class Lista_empleados : AppCompatActivity() {
         //se debe tomar en cuenta que esta cosa es basicamente lo de bases de datos, y NO estamos capacitados para hacerlo
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lista_empleados)
-        val sihay=false //placeholder
+        var empleados: ArrayList<MainActivity.Empleado>?=intent.getParcelableArrayListExtra("empleados")
 
-        test(separador,sihay)
+
+        test(separador,empleados)
         val btAtras= findViewById<ImageButton>(R.id.boton_atras)
         val btAdelante= findViewById<ImageButton>(R.id.boton_saltar)
         btAdelante.setOnClickListener{
-            separador=siguiente(sihay)
-            /*when (separador) {
-                0->{
-                    separador=siguiente(sihay)
-                }
-                1 -> {
-                    separador=siguiente(sihay)
-                }
+            separador=siguiente(empleados)
 
-                2 -> {
-                    separador=siguiente(sihay)
-                }
-
-                3 -> {
-                    separador=siguiente(sihay)
-                }
-
-                4 -> {
-                    separador=siguiente(sihay)
-
-                }
-                else->{
-                    Log.i("Error","Error en siguiente")
-                }
-            }*/
-            /*if(separador==0){
-                separador1= siguiente(separador)
-                separador=1
-            }else
-            }*/
         }
 
         btAtras.setOnClickListener{
-            separador=anterior(sihay)
-            /*when (separador) {
-                0->{
-                    separador=anterior(sihay)
-                }
-                1 -> {
-                    separador=anterior(sihay)
-                }
+            separador=anterior(empleados)
 
-                2 -> {
-                    separador=anterior(sihay)
-                }
-
-                3 -> {
-                    separador=anterior(sihay)
-                }
-
-                4 -> {
-                    separador=anterior(sihay)
-
-                }
-                5 ->{
-                    separador=anterior(sihay)
-                }
-                else->{
-                    Log.i("Error","Error en Anterior $separador")
-                }
-            }*/
         }
     }
 
-    fun test(separador:Int,sihay:Boolean){
+    fun test(separador:Int,empleados:ArrayList<MainActivity.Empleado>? ){
         val data1 = findViewById<TextView>(R.id.persona1Data)
         val data2 = findViewById<TextView>(R.id.persona2Data)
         val data3 = findViewById<TextView>(R.id.persona3Data)
         val data4 = findViewById<TextView>(R.id.persona4Data)
         val data5 = findViewById<TextView>(R.id.persona5Data)
 
-        data class Empleado (
-            //var fotoDePerfil: String, esto deve ser aleatorio yo que se
-            var Nombre: String,
-            var CURP: String,
-            var Seccion: String,
-            var catLab: String)
-        var empleados = ArrayList<Empleado?>(30)
-        //este es el empleado ejemplo
-        empleados.add(Empleado("Pipo Sarzamora","PIPO061518HQTBKFA4","Norte","ejecutivos"))
-        if(/*el paquete que debe llegar de registrar*/sihay==true){
-            //aqui se pone el empleado generado en Regisrar al chopo
-        }else{
-            empleados.add(Empleado("Pipo Sarzamora","PIPO061518HQTBKFA4","Norte","ejecutivos"))
-        }
-        empleados.add(Empleado("Pipo Sarzamora","PIPO061518HQTBKFA4","Norte","ejecutivos"))
-        empleados.add(Empleado("Pipo Sarzamora","PIPO061518HQTBKFA4","Norte","ejecutivos"))
-        empleados.add(Empleado("El P I P O","PIPO061518HQTBKFA4","Norte","ejecutivos"))
 
-        //aqui todos los demas empleados :D
-        //para asegurarnos que sean 30 empleados:
-        while (empleados.size<=29){
-            empleados.add(Empleado("espacio vacio","espacio vacio","espacio vacio","espacio vacio"))
-        }
         val btEliminar = findViewById<Button>(R.id.btEliminar)
         val btEditar = findViewById<Button>(R.id.btEditar)
         val btRegistrar = findViewById<Button>(R.id.btRegistrar)
@@ -135,17 +58,22 @@ class Lista_empleados : AppCompatActivity() {
                 if (eleccion==-1){
                     Log.i("Error","error en eliminar")
                 }else {
-                    val Eliminado= Empleado("espacio vacio","espacio vacio","espacio vacio","espacio vacio")
-                    empleados.removeAt(eleccion)
-                    empleados.add(eleccion,Eliminado)
+                    val Eliminado= MainActivity.Empleado(
+                        "espacio vacio",
+                        "espacio vacio",
+                        "espacio vacio",
+                        "espacio vacio"
+                    )
+                    empleados?.removeAt(eleccion)
+                    empleados?.add(eleccion,Eliminado)
                     //solo puede sobreescribir el ultimo ID colocado, no vi otra forma de hacerlo. -C
                     //NVM si pude -C
-                    val empleado=empleados[eleccion]?.CURP.toString()
+                    val empleado= empleados?.get(eleccion)?.CURP.toString()
                     Log.i("Error","Jala el eliminar? lugar: $eleccion, $empleado")
                     if(separador==0){
                         for (i in 0 until 5){
-                            var Datos = "$i "+(empleados[i]?.Nombre ?:"espacio vacio") +" "+ (empleados[i]?.CURP ?:"espacio vacio") +" "+ (empleados[i]?.catLab
-                                ?: "espacio vacio") +" "+ (empleados[i]?.Seccion ?: "espacio vacio")
+                            var Datos = "$i "+(empleados?.get(i)?.Nombre ?:"espacio vacio") +" "+ (empleados?.get(i)?.CURP ?:"espacio vacio") +" "+ (empleados?.get(i)?.catLab
+                                ?: "espacio vacio") +" "+ (empleados!!?.get(i)?.Seccion ?: "espacio vacio")
                             when (i){
                                 0 -> data1.setText(Datos)
                                 1 -> data2.setText(Datos)
@@ -157,8 +85,8 @@ class Lista_empleados : AppCompatActivity() {
                         }
                     }else if(separador ==1){
                         for (i in 5 until 10){
-                            var Datos = "$i "+(empleados[i]?.Nombre ?:"espacio vacio") +" "+ (empleados[i]?.CURP ?:"espacio vacio") +" "+ (empleados[i]?.catLab
-                                ?: "espacio vacio") +" "+ (empleados[i]?.Seccion ?: "espacio vacio")
+                            var Datos = "$i "+(empleados?.get(i)?.Nombre ?:"espacio vacio") +" "+ (empleados?.get(i)?.CURP ?:"espacio vacio") +" "+ (empleados?.get(i)?.catLab
+                                ?: "espacio vacio") +" "+ (empleados?.get(i)?.Seccion ?: "espacio vacio")
                             when (i){
                                 5 -> data1.setText(Datos)
                                 6 -> data2.setText(Datos)
@@ -170,8 +98,8 @@ class Lista_empleados : AppCompatActivity() {
                         }
                     }else if(separador ==2){
                         for (i in 10 until 15){
-                            var Datos = "$i "+(empleados[i]?.Nombre ?:"espacio vacio") +" "+ (empleados[i]?.CURP ?:"espacio vacio") +" "+ (empleados[i]?.catLab
-                                ?: "espacio vacio") +" "+ (empleados[i]?.Seccion ?: "espacio vacio")
+                            var Datos = "$i "+(empleados?.get(i)?.Nombre ?:"espacio vacio") +" "+ (empleados?.get(i)?.CURP ?:"espacio vacio") +" "+ (empleados?.get(i)?.catLab
+                                ?: "espacio vacio") +" "+ (empleados?.get(i)?.Seccion ?: "espacio vacio")
                             when (i){
                                 10 -> data1.setText(Datos)
                                 11 -> data2.setText(Datos)
@@ -183,8 +111,8 @@ class Lista_empleados : AppCompatActivity() {
                         }
                     }else if(separador ==3){
                         for (i in 15 until 20){
-                            var Datos = "$i "+(empleados[i]?.Nombre ?:"espacio vacio") +" "+ (empleados[i]?.CURP ?:"espacio vacio") +" "+ (empleados[i]?.catLab
-                                ?: "espacio vacio") +" "+ (empleados[i]?.Seccion ?: "espacio vacio")
+                            var Datos = "$i "+(empleados?.get(i)?.Nombre ?:"espacio vacio") +" "+ (empleados?.get(i)?.CURP ?:"espacio vacio") +" "+ (empleados?.get(i)?.catLab
+                                ?: "espacio vacio") +" "+ (empleados?.get(i)?.Seccion ?: "espacio vacio")
                             when (i){
                                 15 -> data1.setText(Datos)
                                 16 -> data2.setText(Datos)
@@ -196,8 +124,8 @@ class Lista_empleados : AppCompatActivity() {
                         }
                     }else if(separador ==4){
                         for (i in 20 until 25){
-                            var Datos = "$i "+(empleados[i]?.Nombre ?:"espacio vacio") +" "+ (empleados[i]?.CURP ?:"espacio vacio") +" "+ (empleados[i]?.catLab
-                                ?: "espacio vacio") +" "+ (empleados[i]?.Seccion ?: "espacio vacio")
+                            var Datos = "$i "+(empleados?.get(i)?.Nombre ?:"espacio vacio") +" "+ (empleados?.get(i)?.CURP ?:"espacio vacio") +" "+ (empleados?.get(i)?.catLab
+                                ?: "espacio vacio") +" "+ (empleados?.get(i)?.Seccion ?: "espacio vacio")
                             when (i){
                                 20 -> data1.setText(Datos)
                                 21 -> data2.setText(Datos)
@@ -209,8 +137,8 @@ class Lista_empleados : AppCompatActivity() {
                         }
                     }else if(separador ==5){
                         for (i in 25 until 30){
-                            var Datos = "$i "+(empleados[i]?.Nombre ?:"espacio vacio") +" "+ (empleados[i]?.CURP ?:"espacio vacio") +" "+ (empleados[i]?.catLab
-                                ?: "espacio vacio") +" "+ (empleados[i]?.Seccion ?: "espacio vacio")
+                            var Datos = "$i "+(empleados?.get(i)?.Nombre ?:"espacio vacio") +" "+ (empleados?.get(i)?.CURP ?:"espacio vacio") +" "+ (empleados?.get(i)?.catLab
+                                ?: "espacio vacio") +" "+ (empleados?.get(i)?.Seccion ?: "espacio vacio")
                             when (i){
                                 25 -> data1.setText(Datos)
                                 26 -> data2.setText(Datos)
@@ -238,8 +166,8 @@ class Lista_empleados : AppCompatActivity() {
 
         if(separador==0){
             for (i in 0 until 5){
-                var Datos = "$i "+(empleados[i]?.Nombre ?:"espacio vacio") +" "+ (empleados[i]?.CURP ?:"espacio vacio") +" "+ (empleados[i]?.catLab
-                    ?: "espacio vacio") +" "+ (empleados[i]?.Seccion ?: "espacio vacio")
+                var Datos = "$i "+(empleados?.get(i)?.Nombre ?:"espacio vacio") +" "+ (empleados?.get(i)?.CURP ?:"espacio vacio") +" "+ (empleados?.get(i)?.catLab
+                    ?: "espacio vacio") +" "+ (empleados?.get(i)?.Seccion ?: "espacio vacio")
                 when (i){
                     0 -> data1.setText(Datos)
                     1 -> data2.setText(Datos)
@@ -251,8 +179,8 @@ class Lista_empleados : AppCompatActivity() {
             }
         }else if(separador ==1){
             for (i in 5 until 10){
-                var Datos = "$i "+(empleados[i]?.Nombre ?:"espacio vacio") +" "+ (empleados[i]?.CURP ?:"espacio vacio") +" "+ (empleados[i]?.catLab
-                    ?: "espacio vacio") +" "+ (empleados[i]?.Seccion ?: "espacio vacio")
+                var Datos = "$i "+(empleados?.get(i)?.Nombre ?:"espacio vacio") +" "+ (empleados?.get(i)?.CURP ?:"espacio vacio") +" "+ (empleados?.get(i)?.catLab
+                    ?: "espacio vacio") +" "+ (empleados?.get(i)?.Seccion ?: "espacio vacio")
                 when (i){
                     5 -> data1.setText(Datos)
                     6 -> data2.setText(Datos)
@@ -264,8 +192,8 @@ class Lista_empleados : AppCompatActivity() {
             }
         }else if(separador ==2){
             for (i in 10 until 15){
-                var Datos = "$i "+(empleados[i]?.Nombre ?:"espacio vacio") +" "+ (empleados[i]?.CURP ?:"espacio vacio") +" "+ (empleados[i]?.catLab
-                    ?: "espacio vacio") +" "+ (empleados[i]?.Seccion ?: "espacio vacio")
+                var Datos = "$i "+(empleados?.get(i)?.Nombre ?:"espacio vacio") +" "+ (empleados?.get(i)?.CURP ?:"espacio vacio") +" "+ (empleados?.get(i)?.catLab
+                    ?: "espacio vacio") +" "+ (empleados?.get(i)?.Seccion ?: "espacio vacio")
                 when (i){
                     10 -> data1.setText(Datos)
                     11 -> data2.setText(Datos)
@@ -277,8 +205,8 @@ class Lista_empleados : AppCompatActivity() {
             }
         }else if(separador ==3){
             for (i in 15 until 20){
-                var Datos = "$i "+(empleados[i]?.Nombre ?:"espacio vacio") +" "+ (empleados[i]?.CURP ?:"espacio vacio") +" "+ (empleados[i]?.catLab
-                    ?: "espacio vacio") +" "+ (empleados[i]?.Seccion ?: "espacio vacio")
+                var Datos = "$i "+(empleados?.get(i)?.Nombre ?:"espacio vacio") +" "+ (empleados?.get(i)?.CURP ?:"espacio vacio") +" "+ (empleados?.get(i)?.catLab
+                    ?: "espacio vacio") +" "+ (empleados?.get(i)?.Seccion ?: "espacio vacio")
                 when (i){
                     15 -> data1.setText(Datos)
                     16 -> data2.setText(Datos)
@@ -290,8 +218,8 @@ class Lista_empleados : AppCompatActivity() {
             }
         }else if(separador ==4){
             for (i in 20 until 25){
-                var Datos = "$i "+(empleados[i]?.Nombre ?:"espacio vacio") +" "+ (empleados[i]?.CURP ?:"espacio vacio") +" "+ (empleados[i]?.catLab
-                    ?: "espacio vacio") +" "+ (empleados[i]?.Seccion ?: "espacio vacio")
+                var Datos = "$i "+(empleados?.get(i)?.Nombre ?:"espacio vacio") +" "+ (empleados?.get(i)?.CURP ?:"espacio vacio") +" "+ (empleados?.get(i)?.catLab
+                    ?: "espacio vacio") +" "+ (empleados?.get(i)?.Seccion ?: "espacio vacio")
                 when (i){
                     20 -> data1.setText(Datos)
                     21 -> data2.setText(Datos)
@@ -303,8 +231,8 @@ class Lista_empleados : AppCompatActivity() {
             }
         }else if(separador ==5){
             for (i in 25 until 30){
-                var Datos = "$i "+(empleados[i]?.Nombre ?:"espacio vacio") +" "+ (empleados[i]?.CURP ?:"espacio vacio") +" "+ (empleados[i]?.catLab
-                    ?: "espacio vacio") +" "+ (empleados[i]?.Seccion ?: "espacio vacio")
+                var Datos = "$i "+(empleados?.get(i)?.Nombre ?:"espacio vacio") +" "+ (empleados?.get(i)?.CURP ?:"espacio vacio") +" "+ (empleados?.get(i)?.catLab
+                    ?: "espacio vacio") +" "+ (empleados?.get(i)?.Seccion ?: "espacio vacio")
                 when (i){
                     25 -> data1.setText(Datos)
                     26 -> data2.setText(Datos)
@@ -317,33 +245,10 @@ class Lista_empleados : AppCompatActivity() {
         }else{
             Log.i("Error","ALgo salio mal, ayuda")
         }
-    }
-/*
-    fun mandar_registrar(ID:Int){
-        if (ID ==-1){
-
-        }else{
-
-        }
-    }
-    fun mandar_Editar(ID:Int){
-        if (ID ==-1){
-
-        }else{
-
-        }
-    }
-    fun eliminar(ID:Int){
-        if (ID ==-1){
-
-        }else{
-
-        }
-    }*/
-    fun siguiente(sihay:Boolean): Int{
+    }fun siguiente(empleados:ArrayList<MainActivity.Empleado>?): Int{
         if (this.separador <5){
             val separadorplus= this.separador +1
-            test(separadorplus,sihay)
+            test(separadorplus,empleados)
             Log.i("Valores","mas 1 $separadorplus")
             return separadorplus
         }else {
@@ -351,10 +256,10 @@ class Lista_empleados : AppCompatActivity() {
             return this.separador
         }
     }
-    fun anterior(sihay: Boolean): Int{
+    fun anterior(empleados:ArrayList<MainActivity.Empleado>?): Int{
         if (separador >0){
             val separadorminus=separador-1
-            test(separadorminus,sihay)
+            test(separadorminus,empleados)
             Log.i("Valores","menos 1 $separadorminus")
             return separadorminus
         }else {
