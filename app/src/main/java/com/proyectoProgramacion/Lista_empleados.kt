@@ -1,5 +1,6 @@
 package com.proyectoProgramacion
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -20,6 +21,8 @@ class Lista_empleados : AppCompatActivity() {
         test(separador,empleados)
         val btAtras= findViewById<ImageButton>(R.id.boton_atras)
         val btAdelante= findViewById<ImageButton>(R.id.boton_saltar)
+        val btRegistrar=findViewById<Button>(R.id.btRegistrar)
+        val btEditar=findViewById<Button>(R.id.btEditar)
         btAdelante.setOnClickListener{
             separador=siguiente(empleados)
 
@@ -27,6 +30,12 @@ class Lista_empleados : AppCompatActivity() {
 
         btAtras.setOnClickListener{
             separador=anterior(empleados)
+
+        }
+        btRegistrar.setOnClickListener{
+
+        }
+        btEditar.setOnClickListener{
 
         }
     }
@@ -266,6 +275,15 @@ class Lista_empleados : AppCompatActivity() {
             Log.i("Error","no se puede $separador")
             return separador
         }
+    }
+    fun registrar(empleados: ArrayList<MainActivity.Empleado>?){
+        val liga = Intent(this, Registrar::class.java)
+        liga.putParcelableArrayListExtra("empleados",empleados)
+        startActivity(liga)
+
+    }
+    fun editar(){
+
     }
 
 }
