@@ -18,6 +18,7 @@ class Lista_empleados : AppCompatActivity() {
         var empleados: ArrayList<MainActivity.Empleado>?=intent.getParcelableArrayListExtra("empleados")
 
 
+
         test(separador,empleados)
         val btAtras= findViewById<ImageButton>(R.id.boton_atras)
         val btAdelante= findViewById<ImageButton>(R.id.boton_saltar)
@@ -33,7 +34,7 @@ class Lista_empleados : AppCompatActivity() {
 
         }
         btRegistrar.setOnClickListener{
-
+            registrar(empleados)
         }
         btEditar.setOnClickListener{
 
@@ -277,9 +278,10 @@ class Lista_empleados : AppCompatActivity() {
         }
     }
     fun registrar(empleados: ArrayList<MainActivity.Empleado>?){
-        val liga = Intent(this, Registrar::class.java)
-        liga.putParcelableArrayListExtra("empleados",empleados)
-        startActivity(liga)
+        val liga1 = Intent(this, Registrar::class.java)
+        liga1.putParcelableArrayListExtra("empleados",empleados)
+        Log.i("ver","si jala?")
+        startActivity(liga1)
 
     }
     fun editar(){
