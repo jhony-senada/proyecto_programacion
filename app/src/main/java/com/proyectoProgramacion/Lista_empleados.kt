@@ -20,6 +20,7 @@ class Lista_empleados : AppCompatActivity() {
 
 
         test(separador,empleados)
+        val selector = findViewById<EditText>(R.id.seleccionID)
         val btAtras= findViewById<ImageButton>(R.id.boton_atras)
         val btAdelante= findViewById<ImageButton>(R.id.boton_saltar)
         val btRegistrar=findViewById<Button>(R.id.btRegistrar)
@@ -37,6 +38,22 @@ class Lista_empleados : AppCompatActivity() {
             registrar(empleados)
         }
         btEditar.setOnClickListener{
+            var selectorV=selector.text.toString()
+            Log.i("Valores","la seleccion es de $selectorV")
+            var eleccion=if (selectorV.isNotEmpty() ){
+                selectorV.toInt()
+
+            }else{
+                -1
+                Log.i("ver","no hay sistema")
+            }
+            Log.i("Valores","la seleccion es de $eleccion")
+            if(eleccion>29){
+                eleccion=-1
+                Log.i("ver","no hay sistema")
+            }
+            Log.i("ver","jala editar?")
+            editar(empleados,eleccion)
 
         }
     }
@@ -52,19 +69,18 @@ class Lista_empleados : AppCompatActivity() {
         val btEliminar = findViewById<Button>(R.id.btEliminar)
         val btEditar = findViewById<Button>(R.id.btEditar)
         val btRegistrar = findViewById<Button>(R.id.btRegistrar)
-        val btAceptar = findViewById<Button>(R.id.btAceptar)
-        btAceptar.setOnClickListener{
-            val selector = findViewById<EditText>(R.id.seleccionID)
-            var selectorV=selector.text.toString()
-            var eleccion=if (selectorV.isNotEmpty() ){
-                selectorV.toInt()
-            }else{
-                -1
-            }
-            if(eleccion>29){
-                eleccion=-1
-            }
             btEliminar.setOnClickListener{//el de eliminar
+                val selector = findViewById<EditText>(R.id.seleccionID)
+                var selectorV=selector.text.toString()
+                var eleccion=if (selectorV.isNotEmpty() ){
+                    selectorV.toInt()
+                }else{
+                    -1
+                }
+                if(eleccion>29){
+                    eleccion=-1
+                }
+
                 if (eleccion==-1){
                     Log.i("Error","error en eliminar")
                 }else {
@@ -163,14 +179,7 @@ class Lista_empleados : AppCompatActivity() {
                     }
                 }
             }
-            btEditar.setOnClickListener{
-                //mandar_Editar()
-            }
 
-            btRegistrar.setOnClickListener{
-                //mandar_registrar()
-            }
-        }
 
 
 
@@ -284,8 +293,13 @@ class Lista_empleados : AppCompatActivity() {
         startActivity(liga1)
 
     }
-    fun editar(){
+    fun editar(empleados: ArrayList<MainActivity.Empleado>?, Lugar: Int){
+        val liga2 = Intent(this, Editar::class.java)
+            liga2.putParcelableArrayListExtra("empleados",empleados)
+            liga2.putExtra("lugar",Lugar)
+        Log.i("ver","si jala esto?")
 
+        startActivity(liga2)
     }
 
 }

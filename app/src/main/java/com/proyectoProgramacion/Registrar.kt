@@ -89,6 +89,7 @@ class Registrar : AppCompatActivity() {
         }else{
             Log.i("valores","seccion: $seccionSeleccionada , catLab: $catLabSelec")
             empleadotemp=MainActivity.Empleado(Nombre,Curp,seccionSeleccionada,catLabSelec)
+            empleados?.removeAt(lugar)
             empleados?.add(lugar,empleadotemp)
             //empleados?.add(lugar,empleadotemp)
         }

@@ -233,17 +233,4 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_media_rew" />
 
-    <Button
-        android:id="@+id/btAceptar"
-        android:layout_width="111dp"
-        android:layout_height="37dp"
-        android:layout_marginTop="546dp"
-        android:layout_marginBottom="148dp"
-        android:text="Aceptar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/boton_saltar"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/boton_atras"
-        app:layout_constraintTop_toTopOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
